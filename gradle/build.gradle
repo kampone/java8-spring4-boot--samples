@@ -1,0 +1,54 @@
+apply plugin: 'java'
+
+defaultTasks 'intro', 'runITest'
+
+
+repositories{
+    jcenter()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.11'
+}
+check.dependsOn.add('runITest')
+
+task runITest (type : JavaExec, dependsOn : test) {
+    main = 'notemates.ITest'
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+task printArtifactoryVersion () {
+    doLast{
+        println version
+    }
+}
+
+4.times { counter ->
+    task "task$counter" {
+        doLast {
+            println "I'm task number $counter"
+        }
+    }
+
+}
+
+task hello () {
+    doLast{
+        ext.myProperty = 'Petya'
+        println 'Hello, world'
+    }
+}
+
+task intro (dependsOn: hello){
+    doLast {
+        println "I am Gradle ${hello.myProperty}"
+    }
+}
+
+task upper {
+    doLast {
+        String someString = 'mY_nAmE'
+        println "Original: $someString"
+        println "UpperCase: ${someString.toUpperCase()}"
+    }
+}
