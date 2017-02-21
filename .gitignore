@@ -60,3 +60,7 @@ fabric.properties
 /.idea/
 .idea
 target
+.mvn
+.setting
+.project
+mvn*
